@@ -21,10 +21,27 @@
 // いっぱい書いてますが、TSの構文をこの問題を通じて理解していただければOKです。
 // 大体型が書けるねーとなればOK!
 
-let inputUserNum: number = Number(prompt("数字を入れてください","0")); 
+type PrintFizzBuzzType = ( input :number ) => void;
+
+let inputUserNum: number = Number(prompt("数字を入れてください","0")?.replace(/[^0-9]/g,"")); 
+
+let printFizzBuzz :PrintFizzBuzzType = (inputNum)=>{
+     switch(true){
+        case inputNum <= 0 :
+            return console.log('none');
+        case inputNum % (3*5) === 0 :
+            return console.log('fizz-buzz');
+        case inputNum % 3 === 0 :
+            return console.log('fizz');
+        case inputNum % 5 === 0 : 
+            return console.log('buzz');
+        default :
+            return console.log('none');
+    }
+}
 
 function printFizzBuzzIf(inputNum: number){
-    if(inputNum <= 0 || isNaN(inputNum)){
+    if(inputNum <= 0){
         console.log('自然数を入れてください');
     }else if(inputNum % (3*5) === 0){
         console.log('fizz-buzz');
@@ -39,7 +56,7 @@ function printFizzBuzzIf(inputNum: number){
 
 function printFizzBuzzSwitch(inputNum: number){
     switch(true){
-        case inputNum <= 0 || isNaN(inputNum) :
+        case inputNum <= 0 :
             return console.log('自然数を入れてください');
         case inputNum % (3*5) === 0 :
             return console.log('fizz-buzz');
@@ -62,3 +79,9 @@ printFizzBuzzIf(10);// buzz
 printFizzBuzzIf(25);// buzz
 printFizzBuzzIf(30);// fizz-buzz
 printFizzBuzzIf(32);// none
+printFizzBuzzIf(32);// none
+printFizzBuzz(0);//none
+printFizzBuzz(3);//fizz
+printFizzBuzz(5);//buzz
+printFizzBuzz(15);//fizz-buzz
+printFizzBuzz(inputUserNum);
